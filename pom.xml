@@ -30,7 +30,7 @@
 					<!-- Generating a .jar file along the .war one, for testing without API: -->
 					<attachClasses>true</attachClasses>
 
-					<!-- Wich source file to be considered as main, when no API is used: -->
+					<!-- Which source file to be considered as main, when no API is used: -->
 					<archive>
 						<manifest>
 							<mainClass>packagename.FileContent</mainClass>
