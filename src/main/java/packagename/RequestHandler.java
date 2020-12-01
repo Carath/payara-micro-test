@@ -12,6 +12,8 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.MediaType;
 
 
+// N.B: Do not put a main function here, it can't be run.
+
 @Path("/")
 public class RequestHandler
 {
@@ -39,5 +41,21 @@ public class RequestHandler
 	{
 		String answer = "POST answer: " + request;
 		return Response.ok().entity(answer).build(); // alternative syntax
+	}
+
+
+	@GET
+	@Path("file")
+	public Response answerFileRequest()
+	{
+		String filename = "some_text_file.txt";
+		// String filename = "not_existing_file.txt";
+
+		String content = FileContent.getFileContent(filename);
+		String answer = "File content: " + content; // all '\n' are ignored!
+
+		// Equivalent to 404 / 200:
+		Response.Status status = content == null ? Response.Status.NOT_FOUND : Response.Status.OK;
+		return Response.status(status).entity(answer).build();
 	}
 }

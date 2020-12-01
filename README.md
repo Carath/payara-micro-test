@@ -20,7 +20,7 @@ sudo docker pull payara/micro
 
 Start the docker process with: ```sudo systemctl start docker```
 
-Then run as sudoer: ```sh start.sh ```
+Then run as sudoer: ```sh start_api.sh ```
 
 To test GET requests, simply go to the following links from a web browser:
 
@@ -43,8 +43,3 @@ curl -w '\n' -X POST --data 'This is my request.' http://localhost:8080/chosenro
 ```
 
 The type of content to be POSTed may also be specified, e.g by adding ```-H 'Content-Type: text/plain'``` before the url.
-
-
-## Improvements to do:
-
-Do not rebuild the container each time, but instead update the .war contained inside.
