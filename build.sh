@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # The goal of this script is to build and test the project, without the REST API.
-# Args can be passed as arguments, e.g by running: sh build.sh foo bar
+# Args can be passed, e.g by running: sh build.sh foo bar
 
 
 # Build:
