@@ -42,10 +42,14 @@ public class FileContent
 	{
 		System.out.println("\nHello world!\n");
 
+		for (String arg : args) {
+			System.out.println(arg);
+		}
+
 		String filename = "some_text_file.txt";
 		// String filename = "not_existing_file.txt";
 
 		String content = getFileContent(filename);
-		System.out.println("File content: " + content);
+		System.out.println("\nFile content: " + content);
 	}
 }

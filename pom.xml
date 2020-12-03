@@ -10,7 +10,9 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<myMainClass>packagename.FileContent</myMainClass>
 		<java.version>1.8</java.version>
+
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,12 +21,13 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-
 		<plugins>
+
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.3</version>
 				<configuration>
+
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 
 					<!-- Generating a .jar file along the .war one, for testing without API: -->
@@ -33,12 +36,22 @@
 					<!-- Which source file to be considered as main, when no API is used: -->
 					<archive>
 						<manifest>
-							<mainClass>packagename.FileContent</mainClass>
+							<mainClass>${myMainClass}</mainClass>
 						</manifest>
 					</archive>
 
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<mainClass>${myMainClass}</mainClass>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -50,6 +63,15 @@
 			<artifactId>jakarta.jakartaee-api</artifactId>
 			<version>9.0.0-RC3</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- Only useful for launching the project with maven. -->
+		<!-- Careful! Versions 1.6 and 3.0 make the API break! -->
+		<!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+		<dependency>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 	</dependencies>

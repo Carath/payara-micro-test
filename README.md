@@ -43,3 +43,13 @@ curl -w '\n' -X POST --data 'This is my request.' http://localhost:8080/chosenro
 ```
 
 The type of content to be POSTed may also be specified, e.g by adding ```-H 'Content-Type: text/plain'``` before the url.
+
+
+## Deployment:
+
+Once the project is done, and needs to be deployed e.g on a server, java and maven need not to be reinstalled there again! Indeed, the docker image contains a java JRE. Therefore, the only files necessary for this to run are:
+
+- This README
+- Dockerfile
+- target/artefactid-1.0-SNAPSHOT.war
+- start_api.sh in which the 'build phase' has been removed.
