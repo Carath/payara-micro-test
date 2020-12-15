@@ -2,6 +2,7 @@
 
 # Settings:
 
+# Name must be lowercase:
 CONTAINER_NAME=container_name
 
 # Comment this for debugging purpose:

@@ -10,6 +10,7 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<!-- Which source file to be considered as main, when no API is used. -->
 		<!-- Package name starts with 'main.java' for better integration with Eclipse IDE: -->
 		<myMainClass>main.java.packagename.FileContent</myMainClass>
 
@@ -35,8 +36,6 @@
 
 					<!-- Generating a .jar file along the .war one, for testing without API: -->
 					<attachClasses>true</attachClasses>
-
-					<!-- Which source file to be considered as main, when no API is used: -->
 					<archive>
 						<manifest>
 							<mainClass>${myMainClass}</mainClass>
