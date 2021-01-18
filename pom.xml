@@ -70,6 +70,16 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Version 1.1.6 did not work. -->
+		<!-- Remove the scope when testing without Payara. -->
+		<!-- https://mvnrepository.com/artifact/org.glassfish/jakarta.json -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.json</artifactId>
+			<version>2.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 </project>

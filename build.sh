@@ -9,6 +9,12 @@
 mvn clean install
 
 
+BUILD_STATUS=$?
+if [ $BUILD_STATUS -ne 0 ]; then
+	exit 1
+fi
+
+
 # Runtime, method 1 - java only:
 
 java -jar target/artefactid-1.0-SNAPSHOT-classes.jar $@
