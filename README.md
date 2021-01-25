@@ -18,9 +18,11 @@ sudo docker pull payara/micro
 
 ## Runtime:
 
-Start the docker process with: ```sudo systemctl start docker```
+Compile the project by running: ``` sh build.sh ```
 
-Then run as sudoer: ```sh start_api.sh ```
+Start the docker process with: ``` sudo systemctl start docker ```
+
+Then run: ``` sudo sh deploy.sh ```
 
 To test GET requests, simply go to the following links from a web browser:
 
@@ -42,7 +44,7 @@ For POST requests:
 curl -w '\n' -X POST --data 'This is my request.' http://localhost:8080/chosenroot/api/post
 ```
 
-The type of content to be POSTed may also be specified, e.g by adding ```-H 'Content-Type: text/plain'``` before the url.
+The type of content to be POSTed may also be specified, e.g by adding ``` -H 'Content-Type: text/plain' ``` before the url.
 
 
 ## Deployment:
@@ -52,4 +54,4 @@ Once the project is done, and needs to be deployed e.g on a server, java and mav
 - This README
 - Dockerfile
 - target/artefactid-1.0-SNAPSHOT.war
-- start_api.sh in which the 'build phase' has been removed.
+- deploy.sh
