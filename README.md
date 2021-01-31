@@ -2,49 +2,47 @@
 
 This provides an asynchronous REST API, enabling GET and POST requests to a java project. It uses the docker image Payara Micro, and Jakarta EE.
 
-Forked from: <https://github.com/apozel/jaxrs-Exemple>
+Initially forked from: <https://github.com/apozel/jaxrs-Exemple>
 
 
 ## Installation (Linux)
 
 Install docker, java 1.8 (jdk + jre), and maven 3.6.3. Don't forget to export the JAVA_HOME and M2_HOME environment variables, and if under a proxy to properly setup the setting.xml file, which must be placed in the ```~/.m2``` directory.
 
-Download the Payara Micro docker image, found at <https://hub.docker.com/r/payara/micro>, by running:
-
-```
-sudo docker pull payara/micro
-```
+The docker image used will be downloaded automatically, however it can still be found at <https://hub.docker.com/r/payara/micro>
 
 
 ## Runtime:
 
 Compile the project by running: ``` sh build.sh ```
 
-Start the docker process with: ``` sudo systemctl start docker ```
+To start using the API, start the docker process with: ``` sudo systemctl start docker ```
 
 Then run: ``` sudo sh deploy.sh ```
+
+Note that after each update to the code, the build and deploy scripts need to be rerun.
 
 To test GET requests, simply go to the following links from a web browser:
 
 ```
-http://localhost:8080/chosenroot/api
-http://localhost:8080/chosenroot/api/get/123
+http://localhost:1234/chosenroot/api
+http://localhost:1234/chosenroot/api/get/hello
 ```
 
 This may alternatively be done using curl:
 
 ```
-curl -w '\n' http://localhost:8080/chosenroot/api
-curl -w '\n' http://localhost:8080/chosenroot/api/get/123
+curl -w '\n' http://localhost:1234/chosenroot/api
+curl -w '\n' http://localhost:1234/chosenroot/api/get/hello
 ```
 
 For POST requests:
 
 ```
-curl -w '\n' -X POST --data 'This is my request.' http://localhost:8080/chosenroot/api/post
+curl -w '\n' -X POST --data 'This is my request.' http://localhost:1234/chosenroot/api/post
 ```
 
-The type of content to be POSTed may also be specified, e.g by adding ``` -H 'Content-Type: text/plain' ``` before the url.
+The type of content to be POSTed may also be specified, e.g by adding ``` -H 'Content-Type: text/plain' ``` before the url. Finally, note that the port 1234 used can be configured in the deploy.sh script.
 
 
 ## Deployment:
@@ -53,5 +51,5 @@ Once the project is done, and needs to be deployed e.g on a server, java and mav
 
 - This README
 - Dockerfile
-- target/artefactid-1.0-SNAPSHOT.war
 - deploy.sh
+- The target/ directory containing only the .war file.
