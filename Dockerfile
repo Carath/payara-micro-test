@@ -5,4 +5,4 @@ FROM payara/micro:5.2020.7
 
 COPY ./target/*.war /opt/payara/deployments
 
-CMD ["--deploymentDir", "/opt/payara/deployments", "--contextroot", "chosenroot", "--nocluster"]
+CMD ["--deploymentDir", "/opt/payara/deployments", "--contextroot", "", "--nocluster"]

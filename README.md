@@ -25,21 +25,21 @@ Note that after each update to the code, the build and deploy scripts need to be
 To test GET requests, simply go to the following links from a web browser:
 
 ```
-http://localhost:1234/chosenroot/api
-http://localhost:1234/chosenroot/api/get/hello
+http://localhost:1234/api
+http://localhost:1234/api/get/hello
 ```
 
 This may alternatively be done using curl:
 
 ```
-curl -w '\n' http://localhost:1234/chosenroot/api
-curl -w '\n' http://localhost:1234/chosenroot/api/get/hello
+curl -w '\n' http://localhost:1234/api
+curl -w '\n' http://localhost:1234/api/get/hello
 ```
 
 For POST requests:
 
 ```
-curl -w '\n' -X POST --data 'This is my request.' http://localhost:1234/chosenroot/api/post
+curl -w '\n' -X POST --data 'This is my request.' http://localhost:1234/api/post
 ```
 
 The type of content to be POSTed may also be specified, e.g by adding ``` -H 'Content-Type: text/plain' ``` before the url. Finally, note that the port 1234 used can be configured in the deploy.sh script.
