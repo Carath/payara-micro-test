@@ -1,53 +1,44 @@
 #!/bin/sh
 
-# Run this script as sudoer.
+#############################################
+# Building an image, and running a container
+# from it. Run this script as sudoer.
+#############################################
 
-##########################################
-# Settings:
+DEFAULT_SETTINGS_FILE=app.env
 
-# Name must be lowercase:
-IMAGE_NAME=image_name
+# Choice of settings file:
+if [ $# -ge 1 ]; then
+	FILE=$1
+elif [ -e "$DEFAULT_SETTINGS_FILE" ]; then
+	FILE=$DEFAULT_SETTINGS_FILE
+else
+	printf "\n-> %s %s\n\n" "No custom settings file given, and default file" \
+		"'$DEFAULT_SETTINGS_FILE' not found."
+	exit 1
+fi
 
-# In production, :latest should not be used.
-IMAGE_VERSION=1.0
+printf "\n-> Using settings from: '$FILE'\n"
 
-# Visible port from which the container will be reachable:
-HOST_PORT=1234
+# Loading the settings. Exits on failure:
+. ./$FILE
 
-# Better not modify this:
-CONTAINER_PORT=8080
-
-# For the container to be removed upon exit, use the --rm flag.
-# Alternatively, automatic restart policies can be set by using
-# the --restart flag, with one of the following options:
-# no, on-failure, always, unless-stopped.
-LIFETIME='--restart on-failure'
-
-# To be able to access the container via bash:
-INTERACTIVE=-it
-
-# Run the container in the background.
-# Comment this for debugging purposes:
-DETACHED=-d
-
-# Used for cleaning unused images:
-ENABLE_DANGLING_CLEANING=true
-
-# Directory containing compilation results,
-# only used to check if the container must be run:
-TARGET_DIR=target
-
-##########################################
-# Deployment:
-
-if [ ! -d "$TARGET_DIR" ]; then
-	printf "\n-> Could not launch the project: compile it first.\n\n"
+# Checking if necessary files, e.g build results are present:
+if [ "$TARGET" = "" ]; then
+	printf "\n-> Target check disabled.\n"
+elif [ ! -d "$TARGET" ]; then # no directory matching TARGET.
+	if [ ! -e "$TARGET" ]; then # no file matching TARGET.
+		printf "\n-> Not running the container: missing '$TARGET' resource.\n\n"
+		exit 1
+	fi
+elif [ ! -n "$(ls -A $TARGET)" ]; then
+	printf "\n-> Not running the container: empty directory '$TARGET'.\n\n"
 	exit 1
 fi
 
 ERROR_MESSAGE="\n-> Are you sure docker is installed, and this script is run as sudoer?\n\n"
 
-PREVIOUS_INSTANCES=$(docker ps -q --filter name=$IMAGE_NAME) || { printf "$ERROR_MESSAGE"; exit 1; }
+PREVIOUS_INSTANCES=$(docker ps -aq --filter name=$NAME) || { printf "$ERROR_MESSAGE"; exit 1; }
 
 if [ ! "$PREVIOUS_INSTANCES" = "" ]; then # do not check the version!
 	printf "\n-> Removing any previous instance of the container:\n\n"
@@ -55,9 +46,9 @@ if [ ! "$PREVIOUS_INSTANCES" = "" ]; then # do not check the version!
 fi
 
 printf "\n-> Building the new image:\n\n"
-docker build -t $IMAGE_NAME:$IMAGE_VERSION .
+docker build -t $NAME:$VERSION .
 
-DANGLING_IMAGES=$(docker images -q --filter "dangling=true" --no-trunc)
+DANGLING_IMAGES=$(docker images -aq --filter "dangling=true" --no-trunc)
 
 if [ $ENABLE_DANGLING_CLEANING = true -a "$DANGLING_IMAGES" != "" ]; then
 	printf "\n-> Removing dangling images:\n\n"
@@ -65,11 +56,17 @@ if [ $ENABLE_DANGLING_CLEANING = true -a "$DANGLING_IMAGES" != "" ]; then
 fi
 
 printf "\n-> Running the new container:\n\n"
-docker run $LIFETIME $INTERACTIVE $DETACHED -p $HOST_PORT:$CONTAINER_PORT --name $IMAGE_NAME $IMAGE_NAME:$IMAGE_VERSION
+docker run \
+	$LIFETIME \
+	$DETACHED \
+	$INTERACTIVE \
+	-p $HOST_PORT:$CONTAINER_PORT \
+	--name $NAME \
+	$NAME:$VERSION
 
 if [ ''$DETACHED = -d ]; then
-	CONTAINER_ID=$(docker ps -aqf "name=$IMAGE_NAME")
-	printf "\n-> Container '$IMAGE_NAME:$IMAGE_VERSION' (id = $CONTAINER_ID) is running.\n\n"
+	CONTAINER_ID=$(docker ps -aqf "name=$NAME")
+	printf "\n-> Container '$NAME:$VERSION' (id = $CONTAINER_ID) is running.\n\n"
 fi
 
 exit 0
