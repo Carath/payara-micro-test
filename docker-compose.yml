@@ -1,0 +1,11 @@
+version: '3.2'
+
+services:
+
+  myapp:
+    image: name:1.0
+    container_name: name
+    restart: "no"
+    build: .
+    ports:
+      - 1234:8080 # host:container
