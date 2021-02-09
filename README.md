@@ -18,13 +18,11 @@ Compile the project by running: ``` sh build.sh ```
 
 To start using the API, start the docker process with: ``` sudo systemctl start docker ```
 
-Then build the docker image, step which should be done after each compilation, by running:
-
-``` sudo docker-compose build ```
+To build the docker image, run ``` sudo docker-compose build ```. Note that this step should be done after each compilation.
 
 Then launch a container with: ``` sudo docker-compose up -d ```
 
-To test GET requests, simply go to the following links from a web browser:
+For testing GET requests, simply go to the following links from a web browser:
 
 ```
 http://localhost:1234/api
