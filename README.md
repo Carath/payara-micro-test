@@ -42,12 +42,12 @@ For POST requests:
 curl -w '\n' -X POST --data 'This is my request.' http://localhost:1234/api/post
 ```
 
-The type of content to be POSTed may also be specified, e.g by adding ``` -H 'Content-Type: text/plain' ``` before the url. Finally, note that the port 1234 used can be configured in the docker-compose.yml file.
+The type of content to be POSTed may also be specified, e.g by adding ``` -H 'Content-Type: text/plain' ``` before the url. Finally, note that the port 1234 used can be configured in the ``` docker-compose.yml ``` file.
 
 
 ## Deployment:
 
-Once the project is done, and needs to be deployed e.g on a web server, java and maven need not to be reinstalled there again! Indeed, the docker image contains a java JRE. Therefore, the only files necessary for this to run are:
+Once the project is done, and needs to be deployed e.g on a web server, java and maven need not to be reinstalled there again! Indeed, the docker image contains a java JRE. Therefore, only Docker and Docker Compose are to be installed, and the only files necessary for this to run are:
 
 - This README
 - Dockerfile
