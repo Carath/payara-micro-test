@@ -1,6 +1,6 @@
 # Payara Micro test
 
-This provides an asynchronous REST API, enabling HTTP requests to a java project. It uses a docker image of Payara Micro, an open-source application server which is Jakarta EE compliant.
+This provides an asynchronous REST API to a java project. It uses a docker image of Payara Micro, an open-source application server which is Jakarta EE compliant.
 
 Initially forked from: <https://github.com/apozel/jaxrs-Exemple>
 
