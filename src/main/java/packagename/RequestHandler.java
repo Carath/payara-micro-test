@@ -15,7 +15,9 @@ public class RequestHandler
 	public Response helloWorld()
 	{
 		JsonObject obj = Json.createObjectBuilder().add("hello", "world").build();
-		return Response.ok(obj).build();
+		return Response.ok(obj)
+			.header("Access-Control-Allow-Origin", "*") // enabling cross-origin requests.
+			.build();
 	}
 
 
